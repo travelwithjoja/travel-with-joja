@@ -1,0 +1,6 @@
+{
+  "name": "Travel With Joja - Luxury Sri Lanka Tourism",
+  "description": "A premium Apple-style luxury tourism website featuring dark emerald and gold aesthetics, glassmorphism UI, curated Sri Lanka destinations, bespoke tours, luxury villas, and direct WhatsApp concierge booking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
