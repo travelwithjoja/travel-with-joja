@@ -348,6 +348,21 @@ export const BespokeTripPlanner: React.FC<BespokeTripPlannerProps> = ({
                   className="px-4 py-3 rounded-xl bg-[#061510] border border-[#D4AF37]/30 text-xs text-white placeholder:text-[#648074] focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+  <input
+    type="date"
+    id="planner-input-arrival"
+    className="px-4 py-3 rounded-xl bg-[#061510] border border-[#D4AF37]/30 text-xs text-white"
+  />
+
+  <input
+    type="number"
+    min="1"
+    placeholder="Guests"
+    id="planner-input-guests"
+    className="px-4 py-3 rounded-xl bg-[#061510] border border-[#D4AF37]/30 text-xs text-white placeholder:text-[#648074]"
+  />
+</div>
 
               <textarea
                 placeholder="Any special celebrations (Anniversary, Honeymoon, Dietary, specific dates or requests)..."
