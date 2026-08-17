@@ -12,6 +12,15 @@
   <body class="bg-[#051109] text-white antialiased selection:bg-[#C5A059]/30 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+  (function () {
+    var redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect !== location.href) {
+      history.replaceState(null, null, redirect);
+    }
+  })();
+</script>
   </body>
 </html>
 
