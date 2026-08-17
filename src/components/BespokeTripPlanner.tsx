@@ -92,6 +92,24 @@ export const BespokeTripPlanner: React.FC<BespokeTripPlannerProps> = ({
 
   const plan = getFullPlan();
   const link = getBespokeWhatsApp(plan);
+    await fetch("https://script.google.com/macros/s/AKfycbzssY4a1_U3S9jDYnRPWgm1QJartPXkqIdETmM0PUtJi7tXJedArTHANpafx9Twio1NzQ/exec", {
+  method: "POST",
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name,
+    email,
+    phone: phoneOrWhatsApp,
+    destination: plan.destinations.join(", "),
+    travelers: plan.travelers,
+    month: plan.month,
+    travelStyle: plan.travelStyle,
+    specialRequests: plan.specialRequests.join(", "),
+    notes,
+  }),
+});
 
   try {
     confetti({
