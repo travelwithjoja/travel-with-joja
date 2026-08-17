@@ -1,6 +1,19 @@
+import { useEffect, useState } from "react";
 import { Users, Calendar, MapPin, BarChart3 } from "lucide-react";
-
 export default function AdminDashboard() {
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycbzssY4a1_U3S9jDYnRPWgm1QJartPXkqIdETmM0PUtJi7tXJedArTHANpafx9Twio1NzQ/exec";
+
+const [bookings, setBookings] = useState<any[]>([]);
+
+useEffect(() => {
+  fetch(API_URL)
+    .then((res) => res.json())
+    .then((data) => {
+      setBookings(data);
+    })
+    .catch(console.error);
+}, []);
   return (
     <section className="min-h-screen bg-[#061510] text-white p-8">
       <h1 className="text-4xl font-bold text-[#D4AF37] mb-8">
