@@ -14,6 +14,7 @@ import { PackageModal } from './components/PackageModal';
 import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
 import { Destination, TourPackage } from './types';
 import { DESTINATIONS, TOUR_PACKAGES } from './data/travelData';
+import AdminDashboard from "./AdminDashboard";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -21,7 +22,9 @@ export default function App() {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<TourPackage | null>(null);
   const [destinationFilter, setDestinationFilter] = useState('all');
-
+if (window.location.pathname.endsWith("/admin")) {
+  return <AdminDashboard />;
+}
   // Scroll Spy for active nav highlight
   useEffect(() => {
     const handleScroll = () => {
