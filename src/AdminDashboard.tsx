@@ -164,7 +164,6 @@ useEffect(() => {
       Logout
     </button>
   </div>
-</div>
       <div className="grid md:grid-cols-4 gap-6">
         <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
           <Users className="text-[#D4AF37] mb-4"/>
