@@ -103,64 +103,66 @@ export default function AdminDashboard() {
         </h2>
 
         <nav className="space-y-3">
-         <button
-  onClick={() => setActiveTab("dashboard")}
-  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
-    activeTab === "dashboard"
-      ? "bg-gradient-to-r from-red-600 to-pink-600"
-      : "hover:bg-white/10"
-  }`}
->
+          <button
+            onClick={() => setActiveTab("dashboard")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
+              activeTab === "dashboard"
+                ? "bg-gradient-to-r from-red-600 to-pink-600"
+                : "hover:bg-white/10"
+            }`}
+          >
             <Home size={20} />
             Dashboard
           </button>
 
           <button
-  onClick={() => setActiveTab("packages")}
-  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
-    activeTab === "packages"
-      ? "bg-gradient-to-r from-red-600 to-pink-600"
-      : "hover:bg-white/10"
-  }`}
->
-  <Package size={20} />
-  Packages
-</button>
-          <button
-  onClick={() => setActiveTab("analytics")}
-  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
-    activeTab === "analytics"
-      ? "bg-gradient-to-r from-red-600 to-pink-600"
-      : "hover:bg-white/10"
-  }`}
->
-  <PieChart size={20} />
-  Analytics
-</button>
+            onClick={() => setActiveTab("packages")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
+              activeTab === "packages"
+                ? "bg-gradient-to-r from-red-600 to-pink-600"
+                : "hover:bg-white/10"
+            }`}
+          >
+            <Package size={20} />
+            Packages
+          </button>
 
           <button
-  onClick={() => setActiveTab("payments")}
-  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
-    activeTab === "payments"
-      ? "bg-gradient-to-r from-red-600 to-pink-600"
-      : "hover:bg-white/10"
-  }`}
->
-  <CreditCard size={20} />
-  Payments
-</button>
+            onClick={() => setActiveTab("analytics")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
+              activeTab === "analytics"
+                ? "bg-gradient-to-r from-red-600 to-pink-600"
+                : "hover:bg-white/10"
+            }`}
+          >
+            <PieChart size={20} />
+            Analytics
+          </button>
 
           <button
-  onClick={() => setActiveTab("settings")}
-  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
-    activeTab === "settings"
-      ? "bg-gradient-to-r from-red-600 to-pink-600"
-      : "hover:bg-white/10"
-  }`}
->
-  <Settings size={20} />
-  Settings
-</button>
+            onClick={() => setActiveTab("payments")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
+              activeTab === "payments"
+                ? "bg-gradient-to-r from-red-600 to-pink-600"
+                : "hover:bg-white/10"
+            }`}
+          >
+            <CreditCard size={20} />
+            Payments
+          </button>
+
+          <button
+            onClick={() => setActiveTab("settings")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition ${
+              activeTab === "settings"
+                ? "bg-gradient-to-r from-red-600 to-pink-600"
+                : "hover:bg-white/10"
+            }`}
+          >
+            <Settings size={20} />
+            Settings
+          </button>
+        </nav>
 
         <div className="mt-auto">
           <button
@@ -179,7 +181,9 @@ export default function AdminDashboard() {
             <h1 className="text-4xl font-bold text-white">
               Travel With Joja
             </h1>
-            <p className="text-gray-400 mt-1">Premium Admin Dashboard</p>
+            <p className="text-gray-400 mt-1">
+              Premium Admin Dashboard
+            </p>
           </div>
 
           <div className="flex items-center gap-4">
@@ -198,57 +202,69 @@ export default function AdminDashboard() {
         </div>
 
         {activeTab === "dashboard" && (
-  <div className="grid md:grid-cols-4 gap-6">
-    <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-      <Users className="text-[#D4AF37] mb-4" />
-      <h3>Total Bookings</h3>
-      <h2 className="text-3xl font-bold">{bookings.length}</h2>
-    </div>
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+              <Users className="text-[#D4AF37] mb-4" />
+              <h3>Total Bookings</h3>
+              <h2 className="text-3xl font-bold">{bookings.length}</h2>
+            </div>
 
-    <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-      <Calendar className="text-[#D4AF37] mb-4" />
-      <h3>Today's Bookings</h3>
-      <h2 className="text-3xl font-bold">0</h2>
-    </div>
+            <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+              <Calendar className="text-[#D4AF37] mb-4" />
+              <h3>Today's Bookings</h3>
+              <h2 className="text-3xl font-bold">0</h2>
+            </div>
 
-    <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-      <MapPin className="text-[#D4AF37] mb-4" />
-      <h3>Top Destination</h3>
-      <h2 className="text-xl font-bold">Sigiriya</h2>
-    </div>
+            <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+              <MapPin className="text-[#D4AF37] mb-4" />
+              <h3>Top Destination</h3>
+              <h2 className="text-xl font-bold">Sigiriya</h2>
+            </div>
 
-    <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-      <BarChart3 className="text-[#D4AF37] mb-4" />
-      <h3>Travelers</h3>
-      <h2 className="text-3xl font-bold">0</h2>
-    </div>
-  </div>
-)}
+            <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+              <BarChart3 className="text-[#D4AF37] mb-4" />
+              <h3>Travelers</h3>
+              <h2 className="text-3xl font-bold">0</h2>
+            </div>
+          </div>
+        )}
 
-{activeTab === "packages" && (
-  <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-    <h2 className="text-2xl font-bold mb-4">Tour Packages</h2>
-    <p className="text-gray-300">Package list මෙතන පෙන්වෙනවා.</p>
-  </div>
-)}
+        {activeTab === "packages" && (
+          <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+            <h2 className="text-2xl font-bold mb-4">Tour Packages</h2>
+            <p className="text-gray-300">
+              Package list මෙතන පෙන්වෙනවා.
+            </p>
+          </div>
+        )}
 
-{activeTab === "analytics" && (
-  <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-    <h2 className="text-2xl font-bold mb-4">Analytics</h2>
-    <p className="text-gray-300">Charts මෙතන පෙන්වෙනවා.</p>
-  </div>
-)}
+        {activeTab === "analytics" && (
+          <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+            <h2 className="text-2xl font-bold mb-4">Analytics</h2>
+            <p className="text-gray-300">
+              Charts මෙතන පෙන්වෙනවා.
+            </p>
+          </div>
+        )}
 
-{activeTab === "payments" && (
-  <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-    <h2 className="text-2xl font-bold mb-4">Payments</h2>
-    <p className="text-gray-300">Payment history මෙතන පෙන්වෙනවා.</p>
-  </div>
-)}
+        {activeTab === "payments" && (
+          <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+            <h2 className="text-2xl font-bold mb-4">Payments</h2>
+            <p className="text-gray-300">
+              Payment history මෙතන පෙන්වෙනවා.
+            </p>
+          </div>
+        )}
 
-{activeTab === "settings" && (
-  <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-    <h2 className="text-2xl font-bold mb-4">Settings</h2>
-    <p className="text-gray-300">Admin settings මෙතන පෙන්වෙනවා.</p>
-  </div>
-)}
+        {activeTab === "settings" && (
+          <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
+            <h2 className="text-2xl font-bold mb-4">Settings</h2>
+            <p className="text-gray-300">
+              Admin settings මෙතන පෙන්වෙනවා.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
