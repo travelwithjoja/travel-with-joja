@@ -124,11 +124,31 @@ export const BespokeTripPlanner: React.FC<BespokeTripPlannerProps> = ({
   window.open(link, '_blank');
 };
 
-  const handleOpenWhatsAppDirect = () => {
-    const plan = getFullPlan();
-    const link = getBespokeWhatsApp(plan);
-    window.open(link, '_blank');
-  };
+  const handleOpenWhatsAppDirect = async () => {
+  const plan = getFullPlan();
+  const link = getBespokeWhatsApp(plan);
+
+  await fetch("https://script.google.com/macros/s/AKfycbzssY4a1_U3S9jDYnRPWgm1QJartPXkqIdETmM0PUtJi7tXJedArTHANpafx9Twio1NzQ/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      phone: phoneOrWhatsApp,
+      destination: plan.destinations.join(", "),
+      travelers: plan.travelers,
+      month: plan.month,
+      travelStyle: plan.travelStyle,
+      specialRequests: plan.specialRequests.join(", "),
+      notes,
+    }),
+  });
+
+  window.open(link, "_blank");
+};
 
   return (
     <section id="planner" className="py-24 relative bg-[#061510] overflow-hidden">
