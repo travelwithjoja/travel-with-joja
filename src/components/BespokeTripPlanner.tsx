@@ -150,6 +150,7 @@ export const BespokeTripPlanner: React.FC<BespokeTripPlannerProps> = ({
   window.open(link, "_blank");
 };
 
+  
   return (
     <section id="planner" className="py-24 relative bg-[#061510] overflow-hidden">
       {/* Background Lighting */}
