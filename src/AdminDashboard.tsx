@@ -9,25 +9,25 @@ export default function AdminDashboard() {
 
       <div className="grid md:grid-cols-4 gap-6">
         <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <Users className="text-[#D4AF37] mb-4" />
+          <Users className="text-[#D4AF37] mb-4"/>
           <h3>Total Bookings</h3>
           <h2 className="text-3xl font-bold">0</h2>
         </div>
 
         <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <Calendar className="text-[#D4AF37] mb-4" />
+          <Calendar className="text-[#D4AF37] mb-4"/>
           <h3>Today's Bookings</h3>
           <h2 className="text-3xl font-bold">0</h2>
         </div>
 
         <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <MapPin className="text-[#D4AF37] mb-4" />
+          <MapPin className="text-[#D4AF37] mb-4"/>
           <h3>Top Destination</h3>
           <h2 className="text-xl font-bold">Sigiriya</h2>
         </div>
 
         <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <BarChart3 className="text-[#D4AF37] mb-4" />
+          <BarChart3 className="text-[#D4AF37] mb-4"/>
           <h3>Travelers</h3>
           <h2 className="text-3xl font-bold">0</h2>
         </div>
