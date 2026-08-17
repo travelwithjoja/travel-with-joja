@@ -188,8 +188,8 @@ useEffect(() => {
           <BarChart3 className="text-[#D4AF37] mb-4"/>
           <h3>Travelers</h3>
           <h2 className="text-3xl font-bold">0</h2>
-       191   </div>      // Grid close
-192   </div>
-193   </section>
-194   );
-195 }
+</div>
+</div>
+</section>
+);
+}
