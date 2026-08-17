@@ -1,5 +1,5 @@
 import React from 'react';
-import jojaLogo from '../assets/images/travel_joja_logo_1786922454921.jpg';
+import jojaLogo from '/logo.png';
 
 interface LogoProps {
   className?: string;
