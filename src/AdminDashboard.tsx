@@ -191,5 +191,6 @@ useEffect(() => {
 </div>
 </div>   
 </section>
+</section>
 );
 }
