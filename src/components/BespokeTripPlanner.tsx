@@ -88,19 +88,23 @@ export const BespokeTripPlanner: React.FC<BespokeTripPlannerProps> = ({
   });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#D4AF37', '#F3E5AB', '#22C55E', '#EDE8D0']
-      });
-    } catch {
-      // safe fallback
-    }
-  };
+  e.preventDefault();
+
+  const plan = getFullPlan();
+  const link = getBespokeWhatsApp(plan);
+
+  try {
+    confetti({
+      particleCount: 120,
+      spread: 90,
+      origin: { y: 0.6 },
+      colors: ['#D4AF37', '#F3E5AB', '#22C55E', '#EDE8D0']
+    });
+  } catch {}
+
+  setSubmitted(true);
+  window.open(link, '_blank');
+};
 
   const handleOpenWhatsAppDirect = () => {
     const plan = getFullPlan();
