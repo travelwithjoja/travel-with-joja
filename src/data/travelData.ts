@@ -1,7 +1,7 @@
 import { Destination, TourPackage, Hotel, GalleryItem, Review } from '../types';
 
-export const WHATSAPP_PHONE = '94771234567'; // Concierge international format
-export const WHATSAPP_DISPLAY = '+94 77 123 4567';
+export const WHATSAPP_PHONE = '94710914522'; // Concierge international format
+export const WHATSAPP_DISPLAY = '+94 71 091 4522';
 export const CONTACT_EMAIL = 'concierge@travelwithjoja.com';
 
 export const DESTINATIONS: Destination[] = [
