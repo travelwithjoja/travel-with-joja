@@ -1,174 +1,230 @@
-import React, { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
-import { HeroSection } from './components/HeroSection';
-import { DestinationsSection } from './components/DestinationsSection';
-import { PackagesSection } from './components/PackagesSection';
-import { HotelsSection } from './components/HotelsSection';
-import { GallerySection } from './components/GallerySection';
-import { ReviewsSection } from './components/ReviewsSection';
-import { BespokeTripPlanner } from './components/BespokeTripPlanner';
-import { ContactSection } from './components/ContactSection';
-import { Footer } from './components/Footer';
-import { DestinationModal } from './components/DestinationModal';
-import { PackageModal } from './components/PackageModal';
-import { WhatsAppFloatingButton } from './components/WhatsAppFloatingButton';
-import { Destination, TourPackage } from './types';
-import { DESTINATIONS, TOUR_PACKAGES } from './data/travelData';
+import { useState } from "react";
+import {
+  Menu,
+  X,
+  MapPin,
+  Star,
+  Phone,
+  ChevronDown,
+} from "lucide-react";
 import AdminDashboard from "./AdminDashboard";
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('hero');
-  const [currency, setCurrency] = useState('USD');
-  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
-  const [selectedPackage, setSelectedPackage] = useState<TourPackage | null>(null);
-  const [destinationFilter, setDestinationFilter] = useState('all');
-if (window.location.pathname.endsWith("/admin")) {
-  return <AdminDashboard />;
-}
-  // Scroll Spy for active nav highlight
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['hero', 'destinations', 'packages', 'hotels', 'gallery', 'reviews', 'planner', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+  if (window.location.pathname.endsWith("/admin")) {
+    return <AdminDashboard />;
+  }
 
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
-    };
+  const [open, setOpen] = useState(false);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleNavigate = (sectionId: string) => {
-    setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleSelectQuickFilter = (destId: string) => {
-    const matchedDest = DESTINATIONS.find((d) => d.id === destId);
-    if (matchedDest) {
-      setSelectedDestination(matchedDest);
-    } else {
-      handleNavigate('destinations');
-    }
-  };
-
-  const handlePlanTripToDestination = (destId: string) => {
-    setSelectedDestination(null);
-    handleNavigate('planner');
-  };
+  const destinations = [
+    {
+      name: "Sigiriya",
+      image:
+        "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=1200",
+    },
+    {
+      name: "Ella",
+      image:
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200",
+    },
+    {
+      name: "Mirissa",
+      image:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200",
+    },
+    {
+      name: "Yala",
+      image:
+        "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200",
+    },
+    {
+      name: "Galle",
+      image:
+        "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=1200",
+    },
+    {
+      name: "Nuwara Eliya",
+      image:
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#051109] text-white font-sans-modern antialiased selection:bg-[#C5A059]/30 selection:text-[#FFF5DF] relative overflow-x-hidden">
-      {/* Sophisticated Dark Global Atmospheric Layer */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(circle at 75% 25%, #C5A059 0%, transparent 45%), radial-gradient(circle at bottom left, #1A3C2A 0%, #051109 70%)'
-          }}
-        />
-      </div>
+    <div className="bg-[#04120d] text-white min-h-screen">
+      {/* NAVBAR */}
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/40 border-b border-yellow-500/20">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-yellow-400">
+            Travel With Joja
+          </h1>
 
-      {/* Decorative Subtle Line Art Watermark from Design */}
-      <div className="fixed top-20 right-20 opacity-10 transform -rotate-12 pointer-events-none z-0">
-        <svg width="240" height="240" viewBox="0 0 24 24" fill="none" stroke="#C5A059" strokeWidth="0.4" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-          <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-        </svg>
-      </div>
+          <nav className="hidden md:flex gap-8 text-sm">
+            <a href="#home" className="hover:text-yellow-400">Home</a>
+            <a href="#destinations" className="hover:text-yellow-400">Destinations</a>
+            <a href="#packages" className="hover:text-yellow-400">Packages</a>
+            <a href="#contact" className="hover:text-yellow-400">Contact</a>
+          </nav>
 
-      <div className="fixed bottom-32 left-10 opacity-10 pointer-events-none z-0">
-        <svg width="320" height="320" viewBox="0 0 100 100" fill="none">
-          <path d="M50 10C50 10 70 40 70 70C70 85 60 95 50 95C40 95 30 85 30 70C30 40 50 10 50 10Z" stroke="#C5A059" strokeWidth="0.2"/>
-        </svg>
-      </div>
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden"
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
 
-      <div className="relative z-10">
-        {/* Top Floating Glassmorphic Navigation Bar */}
-        <Navbar
-          activeSection={activeSection}
-          onNavigate={handleNavigate}
-          currency={currency}
-          onCurrencyChange={setCurrency}
-          onOpenBespokePlanner={() => handleNavigate('planner')}
-        />
+        {open && (
+          <div className="md:hidden bg-black/90 px-6 pb-5 space-y-3">
+            <a href="#home" className="block">Home</a>
+            <a href="#destinations" className="block">Destinations</a>
+            <a href="#packages" className="block">Packages</a>
+            <a href="#contact" className="block">Contact</a>
+          </div>
+        )}
+      </header>
 
-        {/* Main Content Sections */}
-        <main>
-          {/* 1. Cinematic Hero Section with Sunset, Palms, Ocean & Flying Airplane */}
-          <HeroSection
-            onExploreDestinations={() => handleNavigate('destinations')}
-            onExplorePackages={() => handleNavigate('packages')}
-            onOpenBespokePlanner={() => handleNavigate('planner')}
-            onSelectQuickFilter={handleSelectQuickFilter}
-          />
-
-          {/* 2. Signature 6 Key Destinations (Ella, Sigiriya, Mirissa, Galle, Yala, Nuwara Eliya) with 3D cards */}
-          <DestinationsSection
-            onSelectDestination={setSelectedDestination}
-            activeFilter={destinationFilter}
-          />
-
-          {/* 3. Luxury Tour Packages */}
-          <PackagesSection
-            onSelectPackage={setSelectedPackage}
-            currency={currency}
-          />
-
-          {/* 4. Handpicked 5-Star Sanctuaries & Relais & Châteaux Hotels */}
-          <HotelsSection
-            currency={currency}
-          />
-
-          {/* 5. Visual Chronicles Gallery with Lightbox */}
-          <GallerySection />
-
-          {/* 6. Customer Reviews & VIP Testimonials */}
-          <ReviewsSection />
-
-          {/* 7. Interactive Bespoke Trip Planner */}
-          <BespokeTripPlanner />
-
-          {/* 8. VIP Concierge Contact & FAQ */}
-          <ContactSection />
-        </main>
-
-        {/* Footer */}
-        <Footer
-          onNavigate={handleNavigate}
-          onOpenPlanner={() => handleNavigate('planner')}
+      {/* HERO */}
+      <section
+        id="home"
+        className="relative h-screen flex items-center justify-center text-center overflow-hidden"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1548013146-72479768bada?w=1800"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Interactive Floating WhatsApp Concierge Button */}
-        <WhatsAppFloatingButton />
+        <div className="absolute inset-0 bg-black/60" />
 
-        {/* Destination Detail Modal */}
-        <DestinationModal
-          destination={selectedDestination}
-          onClose={() => setSelectedDestination(null)}
-          onPlanTripToDestination={handlePlanTripToDestination}
-        />
+        <div className="relative z-10 px-6 max-w-3xl">
+          <p className="text-yellow-400 uppercase tracking-[6px] mb-4">
+            Luxury Sri Lanka Tours
+          </p>
 
-        {/* Tour Package Master Itinerary Modal */}
-        <PackageModal
-          packageData={selectedPackage}
-          onClose={() => setSelectedPackage(null)}
-          currency={currency}
-        />
-      </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
+            Explore Sri Lanka in Luxury
+          </h1>
+
+          <p className="text-gray-300 mt-6 text-lg">
+            Private Chauffeur • Luxury Hotels • VIP Experiences
+          </p>
+
+          <div className="flex flex-col md:flex-row justify-center gap-4 mt-10">
+            <button className="bg-yellow-400 text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition">
+              Book Your Journey
+            </button>
+
+            <button className="bg-green-600 px-8 py-4 rounded-full font-bold hover:bg-green-500 transition flex items-center justify-center gap-2">
+              <Phone size={18} />
+              WhatsApp
+            </button>
+          </div>
+        </div>
+
+        <ChevronDown className="absolute bottom-10 animate-bounce text-yellow-400" />
+      </section>
+
+      {/* DESTINATIONS */}
+      <section id="destinations" className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-14">
+          <p className="text-yellow-400 uppercase tracking-[4px]">
+            Popular Destinations
+          </p>
+
+          <h2 className="text-4xl font-bold mt-3">
+            Discover Paradise
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {destinations.map((item) => (
+            <div
+              key={item.name}
+              className="group overflow-hidden rounded-3xl bg-[#0b241d] border border-yellow-500/20 hover:border-yellow-400 transition"
+            >
+              <div className="overflow-hidden">
+                <img
+                  src={item.image}
+                  className="h-72 w-full object-cover group-hover:scale-110 transition duration-500"
+                />
+              </div>
+
+              <div className="p-6">
+                <div className="flex items-center gap-2 text-yellow-400 mb-2">
+                  <MapPin size={18} />
+                  {item.name}
+                </div>
+
+                <p className="text-gray-400 text-sm">
+                  Experience luxury travel, breathtaking landscapes and unforgettable memories.
+                </p>
+
+                <button className="mt-5 w-full bg-yellow-400 text-black py-3 rounded-xl font-bold hover:bg-yellow-300">
+                  Explore Tour
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* WHY US */}
+      <section className="py-20 px-6 bg-[#071812]">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-yellow-400 uppercase tracking-[4px]">
+              Why Choose Us
+            </p>
+
+            <h2 className="text-4xl font-bold mt-3">
+              Premium Travel Experience
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              "Luxury Hotels",
+              "Private Chauffeur",
+              "24/7 Support",
+              "Best Local Guides",
+            ].map((text) => (
+              <div
+                key={text}
+                className="bg-[#0b241d] rounded-3xl border border-yellow-500/20 p-8 text-center hover:border-yellow-400 transition"
+              >
+                <Star className="mx-auto text-yellow-400 mb-4" />
+                <h3 className="font-bold">{text}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer
+        id="contact"
+        className="border-t border-yellow-500/20 py-10 text-center"
+      >
+        <h3 className="text-2xl font-bold text-yellow-400">
+          Travel With Joja
+        </h3>
+
+        <p className="text-gray-400 mt-2">
+          Luxury Travel Experiences Across Sri Lanka
+        </p>
+
+        <p className="text-sm text-gray-500 mt-6">
+          © 2026 Travel With Joja. All Rights Reserved.
+        </p>
+      </footer>
+
+      {/* FLOATING WHATSAPP */}
+      <a
+        href="https://wa.me/94770000000"
+        target="_blank"
+        className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-500 p-4 rounded-full shadow-2xl"
+      >
+        <Phone />
+      </a>
     </div>
   );
 }
