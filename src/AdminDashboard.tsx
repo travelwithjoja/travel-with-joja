@@ -1,124 +1,124 @@
 import { useEffect, useState } from "react";
-import { Users, Calendar, MapPin, BarChart3, Lock, LogOut } from "lucide-react";
-export default function AdminDashboard() {
-  const API_URL =
-    "https://script.google.com/macros/s/AKfycbzssY4a1_U3S9jDYnRPWgm1QJartPXkqIdETmM0PUtJi7tXJedArTHANpafx9Twio1NzQ/exec";
+import {
+  Home,
+  Package,
+  PieChart,
+  CreditCard,
+  Settings,
+  Users,
+  Calendar,
+  MapPin,
+  LogOut,
+  BarChart3,
+  Lock,
+} from "lucide-react";
+const [activeTab, setActiveTab] = useState("dashboard");
 const [loggedIn, setLoggedIn] = useState(
   localStorage.getItem("twj_admin") === "true"
 );
-
 const [username, setUsername] = useState("");
 const [password, setPassword] = useState("");
+<section className="min-h-screen bg-gradient-to-br from-black via-[#070b12] to-[#140808] text-white flex">
 
-const login = () => {
-  if (username === "admin" && password === "travel123") {
-    localStorage.setItem("twj_admin", "true");
-    setLoggedIn(true);
-  } else {
-    alert("Wrong Username or Password");
-  }
-};
+  <aside className="w-64 bg-black/40 border-r border-yellow-500/20 p-6 hidden lg:flex flex-col">
+    <h2 className="text-3xl font-bold text-yellow-400 mb-8">
+      Travel With Joja
+    </h2>
 
-const logout = () => {
-  localStorage.removeItem("twj_admin");
-  setLoggedIn(false);
-};
-const [bookings, setBookings] = useState<any[]>([]);
+    {[
+      ["dashboard", Home],
+      ["packages", Package],
+      ["analytics", PieChart],
+      ["payments", CreditCard],
+      ["settings", Settings],
+    ].map(([tab, Icon]) => (
+      <button
+        key={tab}
+        onClick={() => setActiveTab(tab)}
+        className={`flex items-center gap-3 px-4 py-3 rounded-xl mb-2 transition ${
+          activeTab === tab
+            ? "bg-yellow-500 text-black font-bold"
+            : "hover:bg-white/10"
+        }`}
+      >
+        <Icon size={20} />
+        {tab}
+      </button>
+    ))}
 
-useEffect(() => {
-  fetch(API_URL)
-    .then((res) => res.json())
-    .then((data) => {
-      setBookings(data);
-    })
-    .catch(console.error);
-}, []);
-  if (!loggedIn) {
-  return (
-    <section className="min-h-screen bg-[#061510] flex items-center justify-center p-6">
-      <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-3xl p-8 w-full max-w-md shadow-2xl">
-        <div className="flex justify-center mb-6">
-          <div className="bg-[#D4AF37]/20 p-4 rounded-full">
-            <Lock className="text-[#D4AF37]" size={36} />
-          </div>
+    <button
+      onClick={() => {
+        localStorage.removeItem("twj_admin");
+        setLoggedIn(false);
+      }}
+      className="mt-auto flex items-center gap-3 px-4 py-3 rounded-xl bg-red-500 hover:bg-red-600"
+    >
+      <LogOut size={20} />
+      Logout
+    </button>
+  </aside>
+
+  <main className="flex-1 p-8">
+    <h1 className="text-4xl font-bold text-yellow-400 mb-8">
+      Travel With Joja Admin
+    </h1>
+
+    {activeTab === "dashboard" && (
+      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="bg-[#07241C] border border-yellow-500/30 rounded-3xl p-6">
+          <Users className="text-yellow-400 mb-3" />
+          <p>Total Bookings</p>
+          <h2 className="text-4xl font-bold">24</h2>
         </div>
 
-        <h1 className="text-3xl font-bold text-center text-[#D4AF37]">
-          Travel With Joja
-        </h1>
+        <div className="bg-[#07241C] border border-yellow-500/30 rounded-3xl p-6">
+          <Calendar className="text-yellow-400 mb-3" />
+          <p>Today's Bookings</p>
+          <h2 className="text-4xl font-bold">5</h2>
+        </div>
 
-        <p className="text-center text-gray-400 mt-2 mb-8">
-          Admin Dashboard Login
+        <div className="bg-[#07241C] border border-yellow-500/30 rounded-3xl p-6">
+          <MapPin className="text-yellow-400 mb-3" />
+          <p>Top Destination</p>
+          <h2 className="text-2xl font-bold">Sigiriya</h2>
+        </div>
+
+        <div className="bg-[#07241C] border border-yellow-500/30 rounded-3xl p-6">
+          <BarChart3 className="text-yellow-400 mb-3" />
+          <p>Revenue</p>
+          <h2 className="text-4xl font-bold">$12,400</h2>
+        </div>
+      </div>
+    )}
+
+    {activeTab === "packages" && (
+      <div className="bg-[#07241C] rounded-3xl p-6">
+        <h2 className="text-2xl font-bold mb-4">Tour Packages</h2>
+        <button className="bg-yellow-500 text-black px-5 py-3 rounded-xl font-bold">
+          + Add Package
+        </button>
+      </div>
+    )}
+
+    {activeTab === "analytics" && (
+      <div className="bg-[#07241C] rounded-3xl p-6">
+        <h2 className="text-2xl font-bold">Analytics</h2>
+        <p className="text-gray-300 mt-3">
+          Booking charts මෙතන දාමු.
         </p>
-
-        <div className="space-y-4">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full bg-[#061510] border border-[#D4AF37]/30 rounded-xl px-4 py-3 text-white outline-none focus:border-[#D4AF37]"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full bg-[#061510] border border-[#D4AF37]/30 rounded-xl px-4 py-3 text-white outline-none focus:border-[#D4AF37]"
-          />
-
-          <button
-            onClick={login}
-            className="w-full bg-[#D4AF37] hover:bg-yellow-500 text-black font-bold py-3 rounded-xl transition"
-          >
-            Login
-          </button>
-        </div>
       </div>
-    </section>
-  );
-}
-  return (
-    <section className="min-h-screen bg-[#061510] text-white p-8">
-      <div className="flex justify-between items-center mb-8">
-  <h1 className="text-4xl font-bold text-[#D4AF37]">
-    Travel With Joja Admin
-  </h1>
+    )}
 
-  <button
-    onClick={logout}
-    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-xl"
-  >
-    <LogOut size={18} />
-    Logout
-  </button>
-</div>
-      <div className="grid md:grid-cols-4 gap-6">
-        <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <Users className="text-[#D4AF37] mb-4"/>
-          <h3>Total Bookings</h3>
-          <h2 className="text-3xl font-bold">{bookings.length}</h2>
-        </div>
-
-        <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <Calendar className="text-[#D4AF37] mb-4"/>
-          <h3>Today's Bookings</h3>
-          <h2 className="text-3xl font-bold">0</h2>
-        </div>
-
-        <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <MapPin className="text-[#D4AF37] mb-4"/>
-          <h3>Top Destination</h3>
-          <h2 className="text-xl font-bold">Sigiriya</h2>
-        </div>
-
-        <div className="bg-[#0D241C] border border-[#D4AF37]/30 rounded-2xl p-6">
-          <BarChart3 className="text-[#D4AF37] mb-4"/>
-          <h3>Travelers</h3>
-          <h2 className="text-3xl font-bold">0</h2>
-        </div>
+    {activeTab === "payments" && (
+      <div className="bg-[#07241C] rounded-3xl p-6">
+        <h2 className="text-2xl font-bold">Payments</h2>
       </div>
-    </section>
-  );
-}
+    )}
+
+    {activeTab === "settings" && (
+      <div className="bg-[#07241C] rounded-3xl p-6">
+        <h2 className="text-2xl font-bold">Settings</h2>
+      </div>
+    )}
+  </main>
+</section>
