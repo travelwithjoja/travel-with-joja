@@ -123,6 +123,101 @@ export default function App() {
         <ChevronDown className="absolute bottom-10 animate-bounce text-yellow-400" />
       </section>
 
+{`{/* PREMIUM PACKAGES */}
+<section id="packages" className="py-24 px-6 bg-[#071812]">
+  <div className="max-w-7xl mx-auto">
+
+    <div className="text-center mb-14">
+      <p className="text-yellow-400 uppercase tracking-[4px]">
+        Premium Packages
+      </p>
+
+      <h2 className="text-4xl font-bold mt-3">
+        Choose Your Dream Journey
+      </h2>
+
+      <p className="text-gray-400 mt-4">
+        Carefully crafted luxury experiences across Sri Lanka.
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+
+      {[
+        {
+          title: "Luxury Escape",
+          days: "3 Days",
+          price: "$299",
+          img: "https://images.unsplash.com/photo-1548013146-72479768bada?w=900"
+        },
+        {
+          title: "Honeymoon",
+          days: "5 Days",
+          price: "$599",
+          img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900"
+        },
+        {
+          title: "Wildlife Safari",
+          days: "4 Days",
+          price: "$450",
+          img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=900"
+        },
+        {
+          title: "Beach Paradise",
+          days: "6 Days",
+          price: "$699",
+          img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900"
+        }
+      ].map((pkg) => (
+
+        <div
+          key={pkg.title}
+          className="group bg-[#0b241d]/80 backdrop-blur-xl border border-yellow-500/20 rounded-3xl overflow-hidden hover:border-yellow-400 transition duration-500 hover:-translate-y-2"
+        >
+
+          <div className="relative overflow-hidden">
+
+            <img
+              src={pkg.img}
+              className="h-64 w-full object-cover group-hover:scale-110 transition duration-700"
+            />
+
+            <div className="absolute top-4 right-4 bg-yellow-400 text-black font-bold px-3 py-1 rounded-full">
+              {pkg.price}
+            </div>
+
+          </div>
+
+          <div className="p-6">
+
+            <h3 className="text-2xl font-bold">
+              {pkg.title}
+            </h3>
+
+            <p className="text-yellow-400 mt-2">
+              {pkg.days}
+            </p>
+
+            <ul className="mt-5 space-y-2 text-gray-300 text-sm">
+              <li>✓ Luxury Hotel</li>
+              <li>✓ Private Driver</li>
+              <li>✓ Breakfast Included</li>
+              <li>✓ Free Airport Pickup</li>
+            </ul>
+
+            <button className="mt-6 w-full bg-yellow-400 text-black py-3 rounded-xl font-bold hover:bg-yellow-300 transition">
+              Book This Tour
+            </button>
+
+          </div>
+
+        </div>
+
+      ))}
+
+    </div>
+  </div>
+</section>`}
       {/* DESTINATIONS */}
       <section id="destinations" className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-14">
