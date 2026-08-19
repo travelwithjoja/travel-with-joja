@@ -163,7 +163,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [settings, setSettings] = useState<SiteSettings>(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEYS.SETTINGS);
-    return saved ? JSON.parse(saved) : INITIAL_SETTINGS;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (!parsed.whatsappNumber || parsed.whatsappNumber === '+94771234567') {
+          parsed.whatsappNumber = '+94710914522';
+        }
+        if (!parsed.whatsappGreeting || parsed.whatsappGreeting.includes('Hello Joja!')) {
+          parsed.whatsappGreeting = "Hi Travel With Joja, I'm interested in booking a Sri Lanka tour.";
+        }
+        if (!parsed.contactEmail || parsed.contactEmail === 'concierge@travelwithjoja.com') {
+          parsed.contactEmail = 'travelwithjoja38@gmail.com';
+        }
+        if (!parsed.adminEmail || parsed.adminEmail === 'admin@travelwithjoja.com') {
+          parsed.adminEmail = 'travelwithjoja38@gmail.com';
+        }
+        return { ...INITIAL_SETTINGS, ...parsed };
+      } catch (e) {
+        return INITIAL_SETTINGS;
+      }
+    }
+    return INITIAL_SETTINGS;
   });
 
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {

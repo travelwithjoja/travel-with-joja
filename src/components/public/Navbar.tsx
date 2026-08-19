@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { CurrencySwitcher } from '../common/CurrencySwitcher';
-import { Compass, Sparkles, Menu, X, Shield, Phone, MessageSquare, ArrowRight } from 'lucide-react';
+import { Compass, Sparkles, Menu, X, Shield, Phone, MessageSquare, ArrowRight, MessageCircle, Mail } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
@@ -9,6 +9,15 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  const targetEmail = 'travelwithjoja38@gmail.com';
+  const mailSubject = 'Sri Lanka Tour Inquiry';
+  const mailBody = "Hello Travel With Joja, I'm interested in...";
+  const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+  const cleanNumber = (settings.whatsappNumber || '+94710914522').replace(/[^0-9]/g, '');
+  const messageText = settings.whatsappGreeting || "Hi Travel With Joja, I'm interested in booking a Sri Lanka tour.";
+  const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(messageText)}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -143,21 +152,35 @@ export const Navbar: React.FC = () => {
             </button>
 
             <div className="grid grid-cols-2 gap-2">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 px-3 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-center text-xs font-semibold text-emerald-300 flex items-center justify-center gap-2 hover:bg-emerald-900 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4 text-emerald-400" />
+                WhatsApp
+              </a>
+              <a
+                href={mailtoUrl}
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 px-3 rounded-xl bg-[#181B20] border border-[#D4AF37]/40 text-center text-xs font-semibold text-[#D4AF37] hover:text-white flex items-center justify-center gap-2 hover:bg-[#22262D] transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                Email
+              </a>
+            </div>
+
+            <div className="pt-1">
               <Link
                 to="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 px-3 rounded-xl bg-[#181B20] border border-[#D4AF37]/30 text-center text-xs font-semibold text-white flex items-center justify-center gap-2"
+                className="w-full py-2 px-3 rounded-xl bg-[#121418] border border-stone-800 text-center text-xs font-medium text-stone-400 hover:text-white flex items-center justify-center gap-2"
               >
                 <Shield className="w-3.5 h-3.5 text-[#D4AF37]" />
-                Admin Portal
+                Admin Management Portal
               </Link>
-              <a
-                href={`tel:${settings.contactPhone.split('/')[0].trim()}`}
-                className="py-2.5 px-3 rounded-xl bg-[#181B20] border border-stone-800 text-center text-xs font-semibold text-stone-200 flex items-center justify-center gap-2"
-              >
-                <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                Concierge Line
-              </a>
             </div>
           </div>
         </div>

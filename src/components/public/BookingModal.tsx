@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { X, Sparkles, Calendar, Users, MapPin, Package, ShieldCheck, CheckCircle2, DollarSign, Download, Printer } from 'lucide-react';
+import { X, Sparkles, Calendar, Users, MapPin, Package, ShieldCheck, CheckCircle2, DollarSign, Download, Printer, MessageCircle, ExternalLink, Mail } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'motion/react';
 import { Booking } from '../../types';
@@ -16,7 +16,8 @@ export const BookingModal: React.FC = () => {
     formatPrice,
     convertPrice,
     addBooking,
-    showToast
+    showToast,
+    settings
   } = useApp();
 
   // Form State
@@ -165,20 +166,44 @@ export const BookingModal: React.FC = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href={`mailto:travelwithjoja38@gmail.com?subject=${encodeURIComponent('Sri Lanka Tour Inquiry')}&body=${encodeURIComponent(
+                  `Hello Travel With Joja, I'm interested in finalizing booking reference ${confirmedBooking.bookingRef} for ${confirmedBooking.packageName} (${confirmedBooking.travelers} travelers starting ${confirmedBooking.date}).\n\nGuest Name: ${confirmedBooking.name}\nEmail: ${confirmedBooking.email}\nPhone: ${confirmedBooking.phone || 'Not provided'}\nTotal: ${confirmedBooking.currency} ${confirmedBooking.totalConverted.toLocaleString()}`
+                )}`}
+                className="py-3 px-5 rounded-full bg-[#181B20] border border-[#D4AF37]/50 hover:border-[#D4AF37] text-[#D4AF37] hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Email Booking Details</span>
+              </a>
+
+              <a
+                href={`https://wa.me/${(settings.whatsappNumber || '+94710914522').replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                  `Hi Travel With Joja, I just inquired for booking reference ${confirmedBooking.bookingRef} for ${confirmedBooking.packageName} (${confirmedBooking.travelers} travelers starting ${confirmedBooking.date}).`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-3 px-5 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50 transition-all"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>WhatsApp Concierge</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="py-3 px-6 rounded-full bg-[#181B20] border border-stone-700 hover:border-[#D4AF37] text-white text-xs font-semibold flex items-center justify-center gap-2"
+                className="py-3 px-5 rounded-full bg-[#181B20] border border-stone-700 hover:border-[#D4AF37] text-white text-xs font-semibold flex items-center justify-center gap-2"
               >
                 <Printer className="w-4 h-4" />
-                Print Voucher
+                Print
               </button>
+
               <button
                 type="button"
                 onClick={handleClose}
-                className="py-3 px-8 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black text-xs font-bold uppercase tracking-wider"
+                className="py-3 px-6 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black text-xs font-bold uppercase tracking-wider"
               >
-                Return To Website
+                Done
               </button>
             </div>
           </div>

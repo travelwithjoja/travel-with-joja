@@ -1,12 +1,17 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { X, Clock, Star, CheckCircle, XCircle, Plane, Sparkles, Calendar, ArrowRight, ShieldCheck, MapPin } from 'lucide-react';
+import { X, Clock, Star, CheckCircle, XCircle, Plane, Sparkles, Calendar, ArrowRight, ShieldCheck, MapPin, Mail } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const PackageDetailModal: React.FC = () => {
   const { selectedPackage, closePackageModal, openBookingModal, formatPrice } = useApp();
 
   if (!selectedPackage) return null;
+
+  const targetEmail = 'travelwithjoja38@gmail.com';
+  const mailSubject = 'Sri Lanka Tour Inquiry';
+  const mailBody = `Hello Travel With Joja, I'm interested in the ${selectedPackage.title} package (${selectedPackage.duration}, ${(selectedPackage.destinationsCovered || []).join(', ')}).\n\nPlease send me availability, customized pricing, and private villa recommendations.`;
+  const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
@@ -167,19 +172,29 @@ export const PackageDetailModal: React.FC = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              const pId = selectedPackage.id;
-              const pTitle = selectedPackage.title;
-              closePackageModal();
-              openBookingModal({ packageId: pId, packageName: pTitle });
-            }}
-            className="w-full sm:w-auto py-3 px-8 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black text-xs font-bold uppercase tracking-wider hover:shadow-lg transition-all flex items-center justify-center gap-2"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>Reserve This Journey</span>
-          </button>
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            <a
+              href={mailtoUrl}
+              className="w-full sm:w-auto py-3 px-5 rounded-full bg-[#181B20] border border-[#D4AF37]/50 hover:border-[#D4AF37] text-[#D4AF37] hover:text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+            >
+              <Mail className="w-4 h-4" />
+              <span>Inquire via Email</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => {
+                const pId = selectedPackage.id;
+                const pTitle = selectedPackage.title;
+                closePackageModal();
+                openBookingModal({ packageId: pId, packageName: pTitle });
+              }}
+              className="w-full sm:w-auto py-3 px-8 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black text-xs font-bold uppercase tracking-wider hover:shadow-lg transition-all flex items-center justify-center gap-2"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Reserve This Journey</span>
+            </button>
+          </div>
         </div>
       </motion.div>
     </div>

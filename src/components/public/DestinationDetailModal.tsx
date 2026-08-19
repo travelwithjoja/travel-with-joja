@@ -1,12 +1,17 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { X, MapPin, Star, Calendar, Clock, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, MapPin, Star, Calendar, Clock, Sparkles, CheckCircle2, ArrowRight, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const DestinationDetailModal: React.FC = () => {
   const { selectedDestination, closeDestinationModal, openBookingModal, formatPrice } = useApp();
 
   if (!selectedDestination) return null;
+
+  const targetEmail = 'travelwithjoja38@gmail.com';
+  const mailSubject = 'Sri Lanka Tour Inquiry';
+  const mailBody = `Hello Travel With Joja, I'm interested in a bespoke journey to ${selectedDestination.name} (${selectedDestination.region}).\n\nPlease share custom itinerary options, private transport, and boutique luxury stays.`;
+  const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
@@ -129,18 +134,28 @@ export const DestinationDetailModal: React.FC = () => {
             </span>
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              const destName = selectedDestination.name;
-              closeDestinationModal();
-              openBookingModal({ destination: destName });
-            }}
-            className="w-full sm:w-auto py-3 px-8 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black text-xs font-bold uppercase tracking-wider hover:shadow-lg transition-all flex items-center justify-center gap-2"
-          >
-            <span>Plan Journey to {selectedDestination.name}</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            <a
+              href={mailtoUrl}
+              className="w-full sm:w-auto py-3 px-5 rounded-full bg-[#181B20] border border-[#D4AF37]/50 hover:border-[#D4AF37] text-[#D4AF37] hover:text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+            >
+              <Mail className="w-4 h-4" />
+              <span>Inquire via Email</span>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => {
+                const destName = selectedDestination.name;
+                closeDestinationModal();
+                openBookingModal({ destination: destName });
+              }}
+              className="w-full sm:w-auto py-3 px-8 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black text-xs font-bold uppercase tracking-wider hover:shadow-lg transition-all flex items-center justify-center gap-2"
+            >
+              <span>Plan Journey to {selectedDestination.name}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </motion.div>
     </div>

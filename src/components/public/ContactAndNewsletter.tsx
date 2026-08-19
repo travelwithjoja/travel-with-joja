@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Mail, Phone, MapPin, Send, MessageSquare, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare, Sparkles, CheckCircle2, ShieldCheck, MessageCircle, ExternalLink } from 'lucide-react';
 
 export const ContactAndNewsletter: React.FC = () => {
   const { settings, showToast } = useApp();
+
+  const targetEmail = 'travelwithjoja38@gmail.com';
+  const defaultMailSubject = 'Sri Lanka Tour Inquiry';
+  const defaultMailBody = "Hello Travel With Joja, I'm interested in...";
+  const standardMailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(defaultMailSubject)}&body=${encodeURIComponent(defaultMailBody)}`;
+
+  const cleanNumber = (settings.whatsappNumber || '+94710914522').replace(/[^0-9]/g, '');
+  const messageText = settings.whatsappGreeting || "Hi Travel With Joja, I'm interested in booking a Sri Lanka tour.";
+  const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(messageText)}`;
 
   // Contact form state
   const [contactName, setContactName] = useState('');
@@ -13,6 +22,7 @@ export const ContactAndNewsletter: React.FC = () => {
   const [contactMessage, setContactMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [generatedMailto, setGeneratedMailto] = useState(standardMailtoUrl);
 
   // Newsletter state
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -26,15 +36,18 @@ export const ContactAndNewsletter: React.FC = () => {
     }
 
     setIsSubmitting(true);
+
+    const emailBody = `Hello Travel With Joja, I'm interested in booking a bespoke tour to ${contactDestination}.\n\nGuest Name: ${contactName}\nEmail: ${contactEmail}\nPhone / WhatsApp: ${contactPhone || 'Not provided'}\nRegion of Interest: ${contactDestination}\n\nVoyage Details & Special Requests:\n${contactMessage || 'Please share available bespoke packages and villa availability.'}`;
+    const customMailto = `mailto:${targetEmail}?subject=${encodeURIComponent(defaultMailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    setGeneratedMailto(customMailto);
+
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSent(true);
-      showToast(`Thank you, ${contactName}! Your luxury inquiry has been dispatched to our Chief Travel Designer.`);
-      setContactName('');
-      setContactEmail('');
-      setContactPhone('');
-      setContactMessage('');
-    }, 1000);
+      showToast(`Thank you, ${contactName}! Opening your email client to dispatch to travelwithjoja38@gmail.com.`);
+      // Launch mailto client
+      window.location.href = customMailto;
+    }, 600);
   };
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
@@ -89,12 +102,40 @@ export const ContactAndNewsletter: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#181B20] border border-emerald-500/40 flex items-center justify-center flex-shrink-0 text-emerald-400">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-xs uppercase tracking-wider font-bold text-stone-400">Instant WhatsApp Booking</h4>
+                    <p className="text-sm font-medium text-white">{settings.whatsappNumber || '+94 71 091 4522'}</p>
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-1 px-3 py-1 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 text-xs font-semibold transition-all"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>Chat on WhatsApp (+94710914522)</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-[#181B20] border border-[#D4AF37]/30 flex items-center justify-center flex-shrink-0 text-[#D4AF37]">
                     <Mail className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h4 className="text-xs uppercase tracking-wider font-bold text-stone-400">Email Inquiries</h4>
-                    <p className="text-sm font-medium text-white">{settings.contactEmail}</p>
+                    <p className="text-sm font-medium text-white mb-1">travelwithjoja38@gmail.com</p>
+                    <a
+                      href={standardMailtoUrl}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#181B20] hover:bg-[#22262D] border border-[#D4AF37]/40 text-[#D4AF37] hover:text-[#F3E5AB] text-xs font-semibold transition-all"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Email Concierge (mailto)</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -160,18 +201,27 @@ export const ContactAndNewsletter: React.FC = () => {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h4 className="font-serif-luxury text-2xl font-bold text-white mb-2">
-                    Inquiry Received
+                    Inquiry Prepared & Dispatched
                   </h4>
                   <p className="text-sm text-stone-300 max-w-md mx-auto mb-6">
-                    Our Senior Destination Specialist will review your request and reach out within 12 hours via email and WhatsApp.
+                    Your inquiry has been formulated. If your email app did not open automatically, click below to send to <strong className="text-[#D4AF37]">travelwithjoja38@gmail.com</strong>.
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => setIsSent(false)}
-                    className="px-6 py-2.5 rounded-full bg-[#181B20] border border-[#D4AF37]/40 text-[#D4AF37] text-xs font-bold"
-                  >
-                    Submit Another Inquiry
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a
+                      href={generatedMailto}
+                      className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg hover:scale-105 transition-all"
+                    >
+                      <Mail className="w-4 h-4" />
+                      <span>Open in Email App (mailto)</span>
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setIsSent(false)}
+                      className="px-6 py-2.5 rounded-full bg-[#181B20] border border-[#D4AF37]/40 text-[#D4AF37] text-xs font-bold hover:bg-[#22262D] transition-colors"
+                    >
+                      Submit Another Inquiry
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleContactSubmit} className="space-y-4">
@@ -254,7 +304,7 @@ export const ContactAndNewsletter: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black font-bold text-xs uppercase tracking-wider hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <span>Transmitting to Concierge...</span>
@@ -265,6 +315,16 @@ export const ContactAndNewsletter: React.FC = () => {
                       </>
                     )}
                   </button>
+
+                  <div className="pt-2 text-center">
+                    <a
+                      href={standardMailtoUrl}
+                      className="inline-flex items-center gap-1.5 text-xs text-[#D4AF37] hover:text-[#F3E5AB] transition-colors underline decoration-[#D4AF37]/50"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Prefer your email app? Send direct mailto: travelwithjoja38@gmail.com</span>
+                    </a>
+                  </div>
 
                   <p className="text-[11px] text-stone-500 text-center mt-3">
                     🔒 Strict client confidentiality assured. We never share personal contact records.

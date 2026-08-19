@@ -1,11 +1,20 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { CurrencySwitcher } from '../common/CurrencySwitcher';
-import { Compass, Sparkles, Phone, Mail, MapPin, Instagram, Facebook, Twitter, Youtube, Linkedin, Shield, Heart } from 'lucide-react';
+import { Compass, Sparkles, Phone, Mail, MapPin, Instagram, Facebook, Twitter, Youtube, Linkedin, Shield, Heart, MessageCircle, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   const { destinations, packages, settings } = useApp();
+
+  const targetEmail = 'travelwithjoja38@gmail.com';
+  const mailSubject = 'Sri Lanka Tour Inquiry';
+  const mailBody = "Hello Travel With Joja, I'm interested in...";
+  const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+  const cleanNumber = (settings.whatsappNumber || '+94710914522').replace(/[^0-9]/g, '');
+  const messageText = settings.whatsappGreeting || "Hi Travel With Joja, I'm interested in booking a Sri Lanka tour.";
+  const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(messageText)}`;
 
   return (
     <footer className="bg-[#060708] border-t border-stone-800/80 pt-16 pb-12 text-stone-400">
@@ -122,8 +131,25 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="space-y-2.5 text-xs">
               <p className="text-stone-300 font-medium">Colombo Office: 24/7</p>
-              <p className="text-stone-400">{settings.contactPhone}</p>
-              <p className="text-stone-400">{settings.contactEmail}</p>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors font-medium"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>+94 71 091 4522 (WhatsApp)</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+              <a
+                href={mailtoUrl}
+                className="flex items-center gap-1.5 text-stone-300 hover:text-[#D4AF37] transition-colors"
+                title="Send inquiry email to travelwithjoja38@gmail.com"
+              >
+                <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span>travelwithjoja38@gmail.com</span>
+                <ExternalLink className="w-3 h-3 text-stone-500" />
+              </a>
               <div className="pt-3">
                 <Link
                   to="/admin"

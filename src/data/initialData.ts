@@ -855,13 +855,13 @@ export const INITIAL_FAQS: FAQItem[] = [
 export const INITIAL_SETTINGS: SiteSettings = {
   siteName: 'Travel With Joja',
   tagline: 'Luxury Sri Lanka Bespoke Journeys & Private Expeditions',
-  whatsappNumber: '+94771234567',
-  whatsappGreeting: 'Hello Joja! I would like to inquire about booking a bespoke luxury tour to Sri Lanka.',
-  contactEmail: 'concierge@travelwithjoja.com',
-  contactPhone: '+94 11 789 4500 / +44 20 8144 9200',
+  whatsappNumber: '+94710914522',
+  whatsappGreeting: "Hi Travel With Joja, I'm interested in booking a Sri Lanka tour.",
+  contactEmail: 'travelwithjoja38@gmail.com',
+  contactPhone: '+94 71 091 4522 / +94 11 789 4500',
   officeAddress: 'Level 34, World Trade Center, Echelon Square, Colombo 01, Sri Lanka',
   defaultCurrency: 'USD',
-  adminEmail: 'admin@travelwithjoja.com',
+  adminEmail: 'travelwithjoja38@gmail.com',
   currencyRates: {
     USD: 1.0,
     EUR: 0.92,

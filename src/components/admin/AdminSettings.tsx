@@ -22,9 +22,10 @@ export const AdminSettings: React.FC = () => {
   const [siteName, setSiteName] = useState(settings.siteName);
   const [siteTagline, setSiteTagline] = useState(settings.siteTagline);
   const [logoUrl, setLogoUrl] = useState(settings.logoUrl);
-  const [whatsappNumber, setWhatsappNumber] = useState(settings.whatsappNumber);
+  const [whatsappNumber, setWhatsappNumber] = useState(settings.whatsappNumber || '+94710914522');
+  const [whatsappGreeting, setWhatsappGreeting] = useState(settings.whatsappGreeting || "Hi Travel With Joja, I'm interested in booking a Sri Lanka tour.");
   const [contactPhone, setContactPhone] = useState(settings.contactPhone);
-  const [contactEmail, setContactEmail] = useState(settings.contactEmail);
+  const [contactEmail, setContactEmail] = useState(settings.contactEmail || 'travelwithjoja38@gmail.com');
   const [officeAddress, setOfficeAddress] = useState(settings.officeAddress);
   const [heroHeading, setHeroHeading] = useState(settings.heroHeading);
   const [heroSubheading, setHeroSubheading] = useState(settings.heroSubheading);
@@ -41,6 +42,7 @@ export const AdminSettings: React.FC = () => {
       siteTagline,
       logoUrl,
       whatsappNumber,
+      whatsappGreeting,
       contactPhone,
       contactEmail,
       officeAddress,
@@ -176,12 +178,13 @@ export const AdminSettings: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             <div>
               <label className="text-[10px] uppercase font-bold text-stone-400 block mb-1">
-                WhatsApp Floating Booking Number (digits only)
+                WhatsApp Floating Booking Number
               </label>
               <input
                 type="text"
                 value={whatsappNumber}
                 onChange={(e) => setWhatsappNumber(e.target.value)}
+                placeholder="+94710914522"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#090A0C] border border-stone-800 text-white focus:border-[#D4AF37]"
               />
             </div>
@@ -209,6 +212,19 @@ export const AdminSettings: React.FC = () => {
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#090A0C] border border-stone-800 text-white focus:border-[#D4AF37]"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="text-[10px] uppercase font-bold text-stone-400 block mb-1">
+              WhatsApp Pre-filled Greeting Message
+            </label>
+            <input
+              type="text"
+              value={whatsappGreeting}
+              onChange={(e) => setWhatsappGreeting(e.target.value)}
+              placeholder="Hi Travel With Joja, I'm interested in booking a Sri Lanka tour."
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#090A0C] border border-stone-800 text-white focus:border-[#D4AF37]"
+            />
           </div>
 
           <div>
